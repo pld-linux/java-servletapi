@@ -2,16 +2,17 @@ Summary:	Servlet API
 Summary(pl):	API do servletów
 Name:		jakarta-servletapi
 Version:	4
-Release:	3
+Release:	4
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 # Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
 URL:		http://jakarta.apache.org/tomcat/index.html
 BuildRequires:	jakarta-ant >= 1.3
-BuildRequires:	jaxp >= 1.1
-Requires:	jaxp >= 1.1
 Requires:	jre
+Provides:	servlet
+Provides:	servlet4
+Provides:	servlet23
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -38,13 +39,7 @@ Dokumentacja do servletapi.
 %setup -q -n %{name}-%{version}-src
 
 %build
-if [ -z "$JAVA_HOME" ]; then
-	JAVA_HOME=/usr/lib/java
-fi
-ANT_HOME="%{_javalibdir}"
-export JAVA_HOME ANT_HOME
-
-ant dist
+ant dist -Dservletapi.build=build -Dservletapi.dist=dist
 
 %install
 rm -rf $RPM_BUILD_ROOT
