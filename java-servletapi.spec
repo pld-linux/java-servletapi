@@ -2,8 +2,8 @@ Summary:	Servlet API
 Summary(pl):	API do servletów
 Name:		jakarta-servletapi
 Version:	4
-Release:	2
-License:	Apache Software License
+Release:	3
+License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 URL:		http://jakarta.apache.org/tomcat/index.html
@@ -52,14 +52,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javalibdir}
 install dist/lib/*.jar $RPM_BUILD_ROOT%{_javalibdir}
 
-gzip -9nf BUILDING.txt LICENSE README.txt
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc BUILDING.txt LICENSE README.txt
 %{_javalibdir}/*.jar
 
 %files doc
