@@ -37,7 +37,8 @@ Dokumentacja do servletapi.
 
 %build
 ANT_HOME="%{_javalibdir}"
-export ANT_HOME
+JAVA_HOME="%{_libdir}/java"
+export ANT_HOME JAVA_HOME
 
 ant dist
 
