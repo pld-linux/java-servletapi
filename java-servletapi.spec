@@ -36,9 +36,13 @@ Dokumentacja do servletapi.
 %setup -q -n %{name}-%{version}-src
 
 %build
+if [ ! `echo $JAVA_HOME` ]; then
+	echo "You haven't JAVA_HOME variable set. Can't continue."
+	exit 1
+fi
+		
 ANT_HOME="%{_javalibdir}"
-JAVA_HOME="%{_libdir}/java"
-export ANT_HOME JAVA_HOME
+export ANT_HOME
 
 ant dist
 
