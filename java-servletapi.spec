@@ -2,12 +2,12 @@ Summary:	Servlet API
 Summary(pl):	API do servletów
 Name:		jakarta-servletapi
 Version:	4
-Release:	1
+Release:	2
 License:	Apache Software License
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 URL:		http://jakarta.apache.org/tomcat/index.html
-Requires:	ibm-java-sdk
+Requires:	jdk
 BuildRequires:	jakarta-ant
 BuildRequires:	jaxp
 BuildArch:	noarch
@@ -36,9 +36,8 @@ Dokumentacja do servletapi.
 %setup -q -n %{name}-%{version}-src
 
 %build
-JAVA_HOME="%{_libdir}/IBMJava2-13"
 ANT_HOME="%{_javalibdir}"
-export JAVA_HOME ANT_HOME
+export ANT_HOME
 
 ant dist
 
