@@ -1,5 +1,5 @@
-Summary:	Servlet API
-Summary(pl):	API do servletów
+Summary:	Java Servlet and JSP API Classes
+Summary(pl):	Klasy API z implementacj± Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
 Release:	4
@@ -19,10 +19,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_javalibdir	/usr/share/java
 
 %description
-Servlet API.
+This subproject contains the compiled code for the implementation
+classes of the Java Servlet and JSP APIs (packages javax.servlet,
+javax.servlet.http, javax.servlet.jsp, and javax.servlet.jsp.tagext).
 
 %description -l pl
-API do servletów.
+Ten podprojekt zawiera skompilowany kod klas zawieraj±cych
+implementacjê standardów API Java Servlet i JSP (pakiety
+javax.servlet, javax.servlet.http, javax.servlet.jsp, and
+javax.servlet.jsp.tagext).
 
 %package doc
 Summary:	servletapi documentation
