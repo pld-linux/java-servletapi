@@ -7,9 +7,10 @@ License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 URL:		http://jakarta.apache.org/tomcat/index.html
-Requires:	jdk
-BuildRequires:	jakarta-ant
-BuildRequires:	jaxp
+BuildRequires:	jakarta-ant >= 1.3
+BuildRequires:	jaxp >= 1.1
+Requires:	jaxp >= 1.1
+Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,13 +37,11 @@ Dokumentacja do servletapi.
 %setup -q -n %{name}-%{version}-src
 
 %build
-if [ ! `echo $JAVA_HOME` ]; then
-	echo "You haven't JAVA_HOME variable set. Can't continue."
-	exit 1
+if [ -z "$JAVA_HOME" ]; then
+	JAVA_HOME=/usr/lib/java
 fi
-PATH="$PATH:$JAVA_HOME/bin"
 ANT_HOME="%{_javalibdir}"
-export ANT_HOME PATH
+export JAVA_HOME ANT_HOME
 
 ant dist
 
