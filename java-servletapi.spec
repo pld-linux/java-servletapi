@@ -7,7 +7,7 @@ License:	Apache Software License
 Group:		Development/Languages/Java
 Group(de):	Entwicklung/Sprachen/Java
 Group(pl):	Programowanie/Jêzyki/Java
-Source0:	http://jakarta.apache.org/dist/jakarta/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
+Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 URL:		http://jakarta.apache.org/tomcat/index.html
 Requires:	ibm-java-sdk
 BuildRequires:	jakarta-ant
