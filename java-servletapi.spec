@@ -1,5 +1,5 @@
-Summary: 	servletapi
-Summary(pl):	servletapi
+Summary: 	Servlet API
+Summary(pl):	API do servletów
 Name:		jakarta-servletapi
 Version:	4
 Release:	1
@@ -18,31 +18,39 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_javalibdir	/usr/share/java
 
 %description
-servletapi
+Servlet API.
+
+%description -l pl
+API do servletów.
 
 %package doc
+Summary: 	servletapi documentation
+Summary(pl):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
 Group(de):	Entwicklung/Sprachen/Java
 Group(pl):	Programowanie/Jêzyki/Java
-Summary: 	servletapi documentation
 
 %description doc
-servletapi documentation
+servletapi documentation.
+
+%description doc -l pl
+Dokumentacja do servletapi.
 
 %prep
 %setup -q -n %{name}-%{version}-src
 
 %build
-export JAVA_HOME="/usr/lib/IBMJava2-13"
-export ANT_HOME="%{_javalibdir}"
+JAVA_HOME="/usr/lib/IBMJava2-13"
+ANT_HOME="%{_javalibdir}"
+export JAVA_HOME ANT_HOME
 
 ant dist
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/%{_javalibdir}
-cp dist/lib/*.jar $RPM_BUILD_ROOT/%{_javalibdir}
+install -d $RPM_BUILD_ROOT%{_javalibdir}
+install dist/lib/*.jar $RPM_BUILD_ROOT%{_javalibdir}
 
 gzip -9nf BUILDING.txt LICENSE README.txt
 
