@@ -40,9 +40,9 @@ if [ ! `echo $JAVA_HOME` ]; then
 	echo "You haven't JAVA_HOME variable set. Can't continue."
 	exit 1
 fi
-		
+PATH="$PATH:$JAVA_HOME/bin"
 ANT_HOME="%{_javalibdir}"
-export ANT_HOME
+export ANT_HOME PATH
 
 ant dist
 
