@@ -1,4 +1,4 @@
-Summary: 	Servlet API
+Summary:	Servlet API
 Summary(pl):	API do servletów
 Name:		jakarta-servletapi
 Version:	4
@@ -22,7 +22,7 @@ Servlet API.
 API do servletów.
 
 %package doc
-Summary: 	servletapi documentation
+Summary:	servletapi documentation
 Summary(pl):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
 
@@ -36,7 +36,7 @@ Dokumentacja do servletapi.
 %setup -q -n %{name}-%{version}-src
 
 %build
-JAVA_HOME="/usr/lib/IBMJava2-13"
+JAVA_HOME="%{_libdir}/IBMJava2-13"
 ANT_HOME="%{_javalibdir}"
 export JAVA_HOME ANT_HOME
 
@@ -59,5 +59,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_javalibdir}/*.jar
 
 %files doc
-%defattr(644 root root 755)
+%defattr(644,root,root,755)
 %doc dist/docs/*
