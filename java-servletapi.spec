@@ -8,7 +8,7 @@ Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 # Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
 URL:		http://jakarta.apache.org/tomcat/index.html
-BuildRequires:	jakarta-ant >= 1.3
+BuildRequires:	ant >= 1.3
 Requires:	jre
 Provides:	servlet
 Provides:	servlet4
