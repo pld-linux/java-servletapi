@@ -38,6 +38,7 @@ javax.servlet.jsp.tagext).
 Summary:	servletapi documentation
 Summary(pl):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
+Obsoletes:	jakarta-servletapi-doc
 
 %description javadoc
 servletapi documentation.
