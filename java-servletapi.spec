@@ -1,3 +1,7 @@
+#
+# TODO:
+#	- find some decent replacement. this package is old and
+#	obsoleted, but seems good enough as build dependency
 Summary:	Java Servlet and JSP API Classes
 Summary(pl):	Klasy API z implementacj± Java Servlet i JSP
 Name:		jakarta-servletapi
@@ -9,14 +13,15 @@ Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{
 # Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
 URL:		http://jakarta.apache.org/tomcat/index.html
 BuildRequires:	ant >= 1.3
+BuildRequires:	jpackage-utils
+BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jre
 Provides:	servlet
 Provides:	servlet4
 Provides:	servlet23
 BuildArch:	noarch
+ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_javalibdir	%{_datadir}/java
 
 %description
 This subproject contains the compiled code for the implementation
@@ -29,28 +34,31 @@ implementacjê standardów API Java Servlet i JSP (pakiety
 javax.servlet, javax.servlet.http, javax.servlet.jsp, and
 javax.servlet.jsp.tagext).
 
-%package doc
+%package javadoc
 Summary:	servletapi documentation
 Summary(pl):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
 
-%description doc
+%description javadoc
 servletapi documentation.
 
-%description doc -l pl
+%description javadoc -l pl
 Dokumentacja do servletapi.
 
 %prep
 %setup -q -n %{name}-%{version}-src
 
 %build
+unset CLASSPATH || :
+export JAVA_HOME="%{java_home}"
 ant dist -Dservletapi.build=build -Dservletapi.dist=dist
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_javalibdir}
-install dist/lib/*.jar $RPM_BUILD_ROOT%{_javalibdir}
+install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
+install dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+ln -sf %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -58,8 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc BUILDING.txt LICENSE README.txt
-%{_javalibdir}/*.jar
+%{_javadir}/*.jar
 
-%files doc
+%files javadoc
 %defattr(644,root,root,755)
-%doc dist/docs/*
+%doc %{_javadocdir}/%{name}-%{version}
