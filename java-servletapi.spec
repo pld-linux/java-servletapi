@@ -1,4 +1,3 @@
-#
 # TODO:
 #	- find some decent replacement. this package is old and
 #	obsoleted, but seems good enough as build dependency
@@ -6,7 +5,7 @@ Summary:	Java Servlet and JSP API Classes
 Summary(pl):	Klasy API z implementacj± Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
-Release:	4
+Release:	5
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
@@ -17,8 +16,8 @@ BuildRequires:	jpackage-utils
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jre
 Provides:	servlet
-Provides:	servlet4
 Provides:	servlet23
+Provides:	servlet4
 BuildArch:	noarch
 ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -38,6 +37,7 @@ javax.servlet.jsp.tagext).
 Summary:	servletapi documentation
 Summary(pl):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
+Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
 
 %description javadoc
@@ -52,7 +52,7 @@ Dokumentacja do servletapi.
 %build
 unset CLASSPATH || :
 export JAVA_HOME="%{java_home}"
-ant dist -Dservletapi.build=build -Dservletapi.dist=dist
+%ant dist -Dservletapi.build=build -Dservletapi.dist=dist
 
 %install
 rm -rf $RPM_BUILD_ROOT
