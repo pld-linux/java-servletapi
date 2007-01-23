@@ -61,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
 install dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 ln -sf %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
+ln -sf %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi4.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
