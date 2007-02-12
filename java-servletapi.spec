@@ -2,7 +2,7 @@
 #	- find some decent replacement. this package is old and
 #	obsoleted, but seems good enough as build dependency
 Summary:	Java Servlet and JSP API Classes
-Summary(pl):	Klasy API z implementacj± Java Servlet i JSP
+Summary(pl.UTF-8):   Klasy API z implementacjÄ… Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
 Release:	6
@@ -28,15 +28,15 @@ This subproject contains the compiled code for the implementation
 classes of the Java Servlet and JSP APIs (packages javax.servlet,
 javax.servlet.http, javax.servlet.jsp, and javax.servlet.jsp.tagext).
 
-%description -l pl
-Ten podprojekt zawiera skompilowany kod klas zawieraj±cych
-implementacjê standardów API Java Servlet i JSP (pakiety
+%description -l pl.UTF-8
+Ten podprojekt zawiera skompilowany kod klas zawierajÄ…cych
+implementacjÄ™ standardÃ³w API Java Servlet i JSP (pakiety
 javax.servlet, javax.servlet.http, javax.servlet.jsp, and
 javax.servlet.jsp.tagext).
 
 %package javadoc
 Summary:	servletapi documentation
-Summary(pl):	Dokumentacja do servletapi
+Summary(pl.UTF-8):   Dokumentacja do servletapi
 Group:		Development/Languages/Java
 Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
@@ -44,7 +44,7 @@ Obsoletes:	jakarta-servletapi-doc
 %description javadoc
 servletapi documentation.
 
-%description javadoc -l pl
+%description javadoc -l pl.UTF-8
 Dokumentacja do servletapi.
 
 %prep
