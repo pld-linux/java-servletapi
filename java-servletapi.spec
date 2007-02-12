@@ -2,7 +2,7 @@
 #	- find some decent replacement. this package is old and
 #	obsoleted, but seems good enough as build dependency
 Summary:	Java Servlet and JSP API Classes
-Summary(pl.UTF-8):   Klasy API z implementacją Java Servlet i JSP
+Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
 Release:	6
@@ -36,7 +36,7 @@ javax.servlet.jsp.tagext).
 
 %package javadoc
 Summary:	servletapi documentation
-Summary(pl.UTF-8):   Dokumentacja do servletapi
+Summary(pl.UTF-8):	Dokumentacja do servletapi
 Group:		Development/Languages/Java
 Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
