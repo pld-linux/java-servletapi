@@ -1,15 +1,21 @@
 # TODO:
 #	- find some decent replacement. this package is old and
 #	obsoleted, but seems good enough as build dependency
+#
+# Conditional build:
+%bcond_without	javadoc		# don't build javadoc
+#
+%include	/usr/lib/rpm/macros.java
 Summary:	Java Servlet and JSP API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
-Release:	6
+Release:	8
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
 # Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
+Patch0:		%{name}-ant.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant >= 1.3
 BuildRequires:	jpackage-utils
@@ -49,28 +55,40 @@ Dokumentacja do servletapi.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+%patch0 -p1
 
 %build
-unset CLASSPATH || :
-export JAVA_HOME="%{java_home}"
-%ant dist -Dservletapi.build=build -Dservletapi.dist=dist
+%ant dist %{?with_javadoc:javadoc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_javadir}
 
-install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
 install dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-ln -sf %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
-ln -sf %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi4.jar
+ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
+ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi4.jar
+
+# javadoc
+%if %{with javadoc}
+install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -a build/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post javadoc
+ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 
 %files
 %defattr(644,root,root,755)
 %doc BUILDING.txt LICENSE README.txt
 %{_javadir}/*.jar
 
+%if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
 %doc %{_javadocdir}/%{name}-%{version}
+%ghost %{_javadocdir}/%{name}
+%endif
