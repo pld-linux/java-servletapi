@@ -1,0 +1,25 @@
+Only in jakarta-servletapi-4-src.ant/: .build.xml.swp
+Only in jakarta-servletapi-4-src.ant/: build
+diff -ur jakarta-servletapi-4-src/build.xml jakarta-servletapi-4-src.ant/build.xml
+--- jakarta-servletapi-4-src/build.xml	2001-07-20 21:51:05.000000000 +0200
++++ jakarta-servletapi-4-src.ant/build.xml	2007-11-18 15:31:31.199785159 +0200
+@@ -11,6 +11,8 @@
+   <property name="compile.debug"       value="true"/>
+   <property name="compile.deprecation" value="false"/>
+   <property name="compile.optimize"    value="true"/>
++  <property name="compile.source"      value="1.4"/>
++  <property name="compile.target"      value="1.4"/>
+   <property name="servletapi.build"    value="build"/>
+   <property name="servletapi.dist"     value="dist"/>
+   <property name="servletapi.lib"      value="lib"/>
+@@ -59,6 +61,7 @@
+     <!-- Java classes -->
+     <javac srcdir="src/share" destdir="${servletapi.build}/classes"
+            debug="${compile.debug}" deprecation="${compile.deprecation}"
++           source="${compile.source}" target="${compile.target}"
+         optimize="${compile.optimize}"/>
+ 
+     <!-- Associated property files -->
+Only in jakarta-servletapi-4-src.ant/: build.xml~
+Only in jakarta-servletapi-4-src.ant/: dist
+Only in jakarta-servletapi-4-src.ant/: lib
