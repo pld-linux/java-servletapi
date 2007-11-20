@@ -44,7 +44,7 @@ javax.servlet.jsp.tagext).
 %package javadoc
 Summary:	servletapi documentation
 Summary(pl.UTF-8):	Dokumentacja do servletapi
-Group:		Development/Languages/Java
+Group:		Documentation
 Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
 
