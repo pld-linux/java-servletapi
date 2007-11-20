@@ -10,7 +10,7 @@ Summary:	Java Servlet and JSP API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
-Release:	9
+Release:	10
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
