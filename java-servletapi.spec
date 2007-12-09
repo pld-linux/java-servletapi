@@ -23,7 +23,6 @@ BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jre
 Provides:	servlet
-Provides:	servlet23
 Provides:	servlet4
 Provides:	servletapi4
 BuildArch:	noarch
