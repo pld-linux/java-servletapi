@@ -10,7 +10,7 @@ Summary:	Java Servlet and JSP API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet i JSP
 Name:		jakarta-servletapi
 Version:	4
-Release:	11
+Release:	12
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
@@ -22,10 +22,9 @@ BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jre
-Provides:	servlet
+Provides:	servlet = 4
 Provides:	servletapi4
 BuildArch:	noarch
-ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
