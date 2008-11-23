@@ -8,22 +8,24 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	Java Servlet and JSP API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet i JSP
-Name:		jakarta-servletapi
+Name:		java-servletapi
 Version:	4
 Release:	12
 License:	Apache
-Group:		Development/Languages/Java
-Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/%{name}-%{version}-src.tar.gz
+Group:		Libraries/Java
+Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/jakarta-servletapi-%{version}-src.tar.gz
 # Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
-Patch0:		%{name}-ant.patch
+Patch0:		jakarta-servletapi-ant.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant >= 1.3
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+Provides:	jakarta-servletapi
 Requires:	jre
 Provides:	servlet = 4
 Provides:	servletapi4
+Obsoletes:	jakarta-servletapi
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -52,7 +54,7 @@ servletapi documentation.
 Dokumentacja do servletapi.
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%setup -q -n jakarta-servletapi-%{version}-src
 %patch0 -p1
 
 %build
@@ -62,9 +64,9 @@ Dokumentacja do servletapi.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-install dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
-ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi4.jar
+cp -a dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/servletapi-%{version}.jar
+ln -s servletapi-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet.jar
+ln -s servletapi-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servletapi4.jar
 
 # javadoc
 %if %{with javadoc}
