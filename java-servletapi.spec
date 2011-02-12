@@ -1,6 +1,5 @@
-# TODO:
-#	- find some decent replacement. this package is old and
-#	obsoleted, but seems good enough as build dependency
+# NOTE: it's an old servletapi version; see java-servletapi5.spec or tomcat.spec for more recent
+# TODO: rename to java-servletapi4?
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
@@ -42,17 +41,17 @@ javax.servlet, javax.servlet.http, javax.servlet.jsp, and
 javax.servlet.jsp.tagext).
 
 %package javadoc
-Summary:	servletapi documentation
-Summary(pl.UTF-8):	Dokumentacja do servletapi
+Summary:	servletapi 4 documentation
+Summary(pl.UTF-8):	Dokumentacja do servletapi 4
 Group:		Documentation
 Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
 
 %description javadoc
-servletapi documentation.
+servletapi 4 documentation.
 
 %description javadoc -l pl.UTF-8
-Dokumentacja do servletapi.
+Dokumentacja do servletapi 4.
 
 %prep
 %setup -q -n jakarta-servletapi-%{version}-src
