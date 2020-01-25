@@ -4,7 +4,6 @@
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
 #
-%include	/usr/lib/rpm/macros.java
 Summary:	Java Servlet 2.3 and JSP 1.2 API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet 2.3 i JSP 1.2
 Name:		java-servletapi
