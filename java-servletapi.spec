@@ -54,7 +54,7 @@ Dokumentacja do servletapi 4.
 
 %prep
 %setup -q -n jakarta-servletapi-%{version}-src
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %ant dist %{?with_javadoc:javadoc}
