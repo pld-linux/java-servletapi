@@ -10,8 +10,8 @@
 Summary:	Java Servlet 2.3 and JSP 1.2 API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet 2.3 i JSP 1.2
 Name:		java-servletapi
-Version:	5
-Release:	12
+Version:	4
+Release:	13
 License:	Apache v1.1
 Group:		Libraries/Java
 Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/jakarta-servletapi-%{version}-src.tar.gz
