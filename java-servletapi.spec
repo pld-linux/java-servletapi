@@ -3,11 +3,14 @@
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
+
+%{?use_default_jdk:%use_default_jdk 8}
+
 #
 Summary:	Java Servlet 2.3 and JSP 1.2 API Classes
 Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet 2.3 i JSP 1.2
 Name:		java-servletapi
-Version:	4
+Version:	5
 Release:	12
 License:	Apache v1.1
 Group:		Libraries/Java
@@ -16,10 +19,10 @@ Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/ja
 Patch0:		jakarta-servletapi-ant.patch
 URL:		http://tomcat.apache.org/
 BuildRequires:	ant >= 1.3
-BuildRequires:	jdk >= 1.3
+%buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
+BuildRequires:	rpmbuild(macros) >= 1.556
 Requires:	jre >= 1.3
 Provides:	java(jsp) = 1.2
 Provides:	java(servlet) = 2.3
