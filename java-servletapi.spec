@@ -1,102 +1,104 @@
-# NOTE: it's an old servletapi version; see java-servletapi5.spec or tomcat.spec for more recent
-# TODO: rename to java-servletapi4?
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
 
 %{?use_default_jdk:%use_default_jdk 8}
 
-#
-Summary:	Java Servlet 2.3 and JSP 1.2 API Classes
-Summary(pl.UTF-8):	Klasy API z implementacją Java Servlet 2.3 i JSP 1.2
+Summary:	Java Servlet 4.0 API
+Summary(pl.UTF-8):	API Java Servlet 4.0
 Name:		java-servletapi
-Version:	4
-Release:	13
-License:	Apache v1.1
+Version:	4.0.1
+Release:	1
+License:	CDDL v1.1 or GPL v2 with Classpath exception
 Group:		Libraries/Java
-Source0:	http://jakarta.apache.org/builds/jakarta-tomcat-4.0/release/v4.0/src/jakarta-servletapi-%{version}-src.tar.gz
-# Source0-md5:	cbf88ed51ee2be5a6ce3bace9d8bdb62
-Patch0:		jakarta-servletapi-ant.patch
-URL:		http://tomcat.apache.org/
-BuildRequires:	ant >= 1.3
+#Source0Download: https://github.com/javaee/servlet-spec/releases
+Source0:	https://github.com/javaee/servlet-spec/archive/refs/tags/%{version}/servlet-spec-%{version}.tar.gz
+# Source0-md5:	bfb6f2ce27bdcca12159b48e1db9bf7a
+URL:		https://javaee.github.io/servlet-spec/
 %buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.556
-Requires:	jre >= 1.3
-Provides:	java(jsp) = 1.2
-Provides:	java(servlet) = 2.3
+BuildRequires:	rpmbuild(macros) >= 2.058
+Provides:	java(servlet) = 4.0
 Obsoletes:	jakarta-servletapi
+Obsoletes:	java-servletapi5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This subproject contains the compiled code for the implementation
-classes of the Java Servlet 2.3 and JSP 1.2 APIs (packages
-javax.servlet, javax.servlet.http, javax.servlet.jsp, and
-javax.servlet.jsp.tagext).
+Java Servlet 4.0 API classes (packages javax.servlet,
+javax.servlet.http, javax.servlet.descriptor, javax.servlet.annotation).
 
 %description -l pl.UTF-8
-Ten podprojekt zawiera skompilowany kod klas zawierających
-implementację standardów API Java Servlet 2.3 i JSP 1.2 (pakiety
-javax.servlet, javax.servlet.http, javax.servlet.jsp, and
-javax.servlet.jsp.tagext).
+Klasy API Java Servlet 4.0 (pakiety javax.servlet, javax.servlet.http,
+javax.servlet.descriptor, javax.servlet.annotation).
 
 %package javadoc
-Summary:	servletapi 4 documentation
-Summary(pl.UTF-8):	Dokumentacja do servletapi 4
+Summary:	Java Servlet API documentation
+Summary(pl.UTF-8):	Dokumentacja API Java Servlet
 Group:		Documentation
 Requires:	jpackage-utils
 Obsoletes:	jakarta-servletapi-doc
 
 %description javadoc
-servletapi 4 documentation.
+Java Servlet API documentation.
 
 %description javadoc -l pl.UTF-8
-Dokumentacja do servletapi 4.
+Dokumentacja API Java Servlet.
 
 %prep
-%setup -q -n jakarta-servletapi-%{version}-src
-%patch -P0 -p1
+%setup -q -n servlet-spec-%{version}
 
 %build
-%ant dist %{?with_javadoc:javadoc}
+export JAVA_HOME="%{java_home}"
+
+install -d target/classes
+%javac -d target/classes \
+	-source 1.8 -target 1.8 \
+	-encoding UTF-8 \
+	$(find src/main/java -name '*.java')
+
+cd target/classes
+%jar cf ../servlet-api-%{version}.jar javax
+cd ../..
+
+%if %{with javadoc}
+%javadoc -d target/apidocs \
+	-source 1.8 \
+	-encoding UTF-8 \
+	-Xdoclint:none \
+	-subpackages javax.servlet \
+	-sourcepath src/main/java
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-cp -a dist/lib/servlet.jar $RPM_BUILD_ROOT%{_javadir}/servlet-%{version}.jar
-ln -s servlet-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-2.3.jar
-ln -s servlet-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
-ln -s servlet-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api-1.2.jar
-ln -s servlet-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jsp-api.jar
+install target/servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api-%{version}.jar
+ln -sf servlet-api-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/servlet-api.jar
 
-# javadoc
 %if %{with javadoc}
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -a build/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+cp -a target/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
-ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
+ln -sf %{name}-%{version} %{_javadocdir}/%{name}
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README.txt
-%{_javadir}/servlet-%{version}.jar
-%{_javadir}/servlet-api-2.3.jar
+%doc LICENSE README.md
+%{_javadir}/servlet-api-%{version}.jar
 %{_javadir}/servlet-api.jar
-%{_javadir}/jsp-api-1.2.jar
-%{_javadir}/jsp-api.jar
 
 %if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
-%doc %{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{name}-%{version}
 %ghost %{_javadocdir}/%{name}
 %endif
