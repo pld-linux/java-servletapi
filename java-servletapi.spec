@@ -8,7 +8,7 @@ Summary:	Java Servlet 4.0 API
 Summary(pl.UTF-8):	API Java Servlet 4.0
 Name:		java-servletapi
 Version:	4.0.1
-Release:	1
+Release:	2
 License:	CDDL v1.1 or GPL v2 with Classpath exception
 Group:		Libraries/Java
 #Source0Download: https://github.com/javaee/servlet-spec/releases
@@ -57,6 +57,13 @@ install -d target/classes
 	-source 1.8 -target 1.8 \
 	-encoding UTF-8 \
 	$(find src/main/java -name '*.java')
+
+# LocalStrings.properties (alongside .java sources, per pom.xml resources)
+# is loaded by GenericFilter at runtime; %javac doesn't copy non-.java files.
+cd src/main/java
+find . -name '*.properties' -exec cp --parents '{}' ../../../target/classes/ \;
+cd ../../..
+test -s target/classes/javax/servlet/LocalStrings.properties
 
 cd target/classes
 %jar cf ../servlet-api-%{version}.jar javax
